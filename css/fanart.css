@@ -1,0 +1,143 @@
+@charset "UTF-8";
+/* CSS Document */
+
+*{
+    margin: 0;
+    padding: 0;
+	font-family: system-ui, sans-serif;
+}
+body {
+    font: 13px "Helvetica Neue", Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+    background-color: #E2E2E2;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transform: none !important;
+}
+
+h1{
+	width:100px;
+}
+h1 img{
+	margin-left: 10%;
+	width: 80%;
+	height: 100%;
+}
+.top{
+	margin-top: 40px;
+	margin-left: 20px;
+	position: fixed;
+    top:0;
+    width: 10%;
+    height: 130px;
+    justify-content: center;
+	align-items: center;	
+}
+
+.top h1{
+	margin-left: 10%;
+	
+}
+.filter-btn {
+  padding: 8px 15px;
+  border: none;
+  background-color: #FFA5CA;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 20%;
+	margin-bottom: 10%;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: #333;
+  color: #EFE42C;
+}
+
+.push{
+	/*テキストの基点とするためrelativeを指定*/
+	position: relative;
+    /*ボタンの形状*/
+	border: #555;/*囲み線はsolid、線幅指定はpx*/
+    min-width:20px;/*要素の幅の最小値を指定する*/
+	display: inline-block;
+	padding: 1px 0px 1px 0px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+	background-color: #EFE42C;
+    outline: none;/*入力中に箱が入力中ということを表す*/
+    transition: all .2s;/*ホバーした時の動き*/
+	cursor: url("../img/cursor.svg"), auto;
+}
+
+.push:hover{
+	background:#333;
+    color:#fff;
+}
+.push.active {
+  background: #333;
+  color:  #EFE42C;
+}
+
+#modal-container {
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, .7);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+#modal-container .modal-center {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal-container img {
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+}
+
+.masonry {
+	padding: 0 125px 0 20%;
+    column-count: 3;            /* PC表示：3列 */
+    column-gap: 25px;           /* 画像の左右のすき間 */
+    width: 65%;
+    margin: 40px auto;
+}
+
+.masonry img {
+    width: 100%;
+    margin-bottom: 25px;
+    display: block;
+    break-inside: avoid;
+    transition: all 0.3s ease; /* アニメーションはここに */
+    cursor: pointer;
+}
+
+.masonry img:hover {
+	width: 100%;
+    transform: scale(1.05);        /* 少し拡大 */
+    filter: brightness(0.9);        /* 少し暗く */
+}
+
+
+
+/*==========================================すまほ==========================================*/
+@media (max-width: 768px) {
+    .masonry {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .masonry {
+        column-count: 1;
+    }
+}
