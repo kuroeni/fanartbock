@@ -326,19 +326,22 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 	
-	function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
+	
 	document.addEventListener("DOMContentLoaded", function () {
-
   const masonry = document.querySelector(".masonry");
-  const images = Array.from(masonry.querySelectorAll("img"));
+  const allImages = Array.from(masonry.querySelectorAll("img"));
+  const modal = document.getElementById("modal-container");
+  const modalImg = modal.querySelector("img");
 
-  // 画像シャッフル関数
+  // カテゴリごとに画像配列を作成
+  const categories = {
+    all: allImages.slice(), // all は全て
+    comic: allImages.filter(img => img.dataset.category === "comic"),
+    works: allImages.filter(img => img.dataset.category === "works"),
+    "music&movie": allImages.filter(img => img.dataset.category === "music&movie")
+  };
+
+  // シャッフル関数
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -347,47 +350,62 @@ document.addEventListener("DOMContentLoaded", function () {
     return array;
   }
 
-  // ページ読み込み時にシャッフルして表示
-  const shuffledImages = shuffleArray(images.slice());
+  // ページ読み込み時に all をシャッフルして表示
+  const shuffledAll = shuffleArray(categories.all.slice());
   masonry.innerHTML = "";
-  shuffledImages.forEach(img => masonry.appendChild(img));
+  shuffledAll.forEach(img => masonry.appendChild(img));
 
-  // モーダル処理（既存コード）
-  const modal = document.getElementById("modal-container");
-  const modalImg = modal.querySelector("img");
-
-  shuffledImages.forEach(function(img) {
+  // モーダル設定
+  allImages.forEach(img => {
     img.classList.add("popup");
-    img.addEventListener("click", function() {
+    img.addEventListener("click", function () {
       modalImg.src = this.src;
       modal.style.display = "block";
     });
   });
-
-  modal.addEventListener("click", function() {
+  modal.addEventListener("click", function () {
     modal.style.display = "none";
   });
 
-});
+  // カテゴリボタン処理
+  const buttons = document.querySelectorAll(".filter-btn");
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const category = button.dataset.category;
 
+      // ボタンのアクティブ切替
+      buttons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      // masonry 内を空にして、カテゴリ配列を追加
+      masonry.innerHTML = "";
+      if (category === "all") {
+        // all の場合は初回シャッフル済みをそのまま表示
+        shuffledAll.forEach(img => masonry.appendChild(img));
+      } else {
+        categories[category].forEach(img => masonry.appendChild(img));
+      }
+    });
+  });
+});
 	
-	// 下にスクロール → 隠す
-	let lastScroll = 0;
-const topBar = document.querySelector('.top');
+	
+	
+	
+	
+  // 下にスクロール → トップバーを隠す
+  let lastScroll = 0;
+  const topBar = document.querySelector('.top');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > lastScroll && currentScroll > 50) {
+      topBar.style.transform = 'translateY(-100%)';
+    } else if (currentScroll < lastScroll) {
+      topBar.style.transform = 'translateY(0)';
+    }
+    lastScroll = currentScroll;
+  });
 
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-
-  if (currentScroll > lastScroll && currentScroll > 50) {
-    // 下スクロール → 隠す
-    topBar.style.transform = 'translateY(-100%)';
-  } else if (currentScroll < lastScroll) {
-    // 上スクロール → 表示
-    topBar.style.transform = 'translateY(0)';
-  }
-
-  lastScroll = currentScroll;
-});
 </script>
 	
 
