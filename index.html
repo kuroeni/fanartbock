@@ -41,10 +41,10 @@
 	
 	<div class="top">
 		<h1><a href="index.html"><img src="img/catchcbillie_K.PNG" alt=""></a></h1>
-  		<button class="filter-btn" data-category="all">　🌏　</button>
-  		<button class="filter-btn" data-category="comic">　📕　</button>
-  		<button class="filter-btn" data-category="music&movie">　🎸🎬　</button>
-		<button class="filter-btn" data-category="works">　🎀　</button>
+  		<button class="filter-btn" data-category="all">ALL</button>
+  		<button class="filter-btn" data-category="comic">comic</button>
+  		<button class="filter-btn" data-category="music&movie">sabcal</button>
+		<button class="filter-btn" data-category="works">works</button>
 　　</div>
 
 	
@@ -361,6 +361,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+	
+	// 下にスクロール → 隠す
+	let lastScroll = 0;
+const topBar = document.querySelector('.top');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll && currentScroll > 50) {
+    // 下スクロール → 隠す
+    topBar.style.transform = 'translateY(-100%)';
+  } else if (currentScroll < lastScroll) {
+    // 上スクロール → 表示
+    topBar.style.transform = 'translateY(0)';
+  }
+
+  lastScroll = currentScroll;
+});
 </script>
 	
 
