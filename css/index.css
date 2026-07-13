@@ -1,192 +1,196 @@
 @charset "UTF-8";
-/* CSS Document */
 
-*{
-    margin: 0;
-    padding: 0;
-	font-family: Courier New ;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", monospace;
 }
+
 body {
-	background: url("../img/back.jpeg");
-    font-family: Courier New;
-    font-weight: 400;
-    line-height: 1.4;
-    overflow-x: hidden;
-    overflow-y: auto;
-    transform: none !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #222;
+  background: url("../img/back.jpeg");
 }
 
-h1{
-	width:100px;
-}
-h1 img{
-	margin-left: 10%;
-	width: 80%;
-	height: 100%;
-}
-.top{
-	margin-top: 40px;
-	margin-left: 20px;
-	position: fixed;
-    top:0;
-    width: 10%;
-    height: 130px;
-    justify-content: center;
-	align-items: center;	
+body.modal-open {
+  overflow: hidden;
 }
 
-.top h1{
-	margin-left: 10%;
-	
+.top {
+  position: fixed;
+  z-index: 100;
+  top: 40px;
+  left: 20px;
+  display: flex;
+  width: 120px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease;
 }
+
+.top h1 {
+  width: 100px;
+}
+
+.top h1 img {
+  display: block;
+  width: 80px;
+  height: auto;
+}
+
 .filter-btn {
-  padding: 8px 15px;
-  border: none;
-  background-color: #FFA5CA;
+  min-width: 72px;
+  padding: 8px 12px;
+  border: 0;
+  background: #ffa5ca;
+  color: #222;
   cursor: pointer;
-  transition: all 0.2s;
-  margin-left: 20%;
-  margin-bottom: 10%;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .filter-btn:hover,
+.filter-btn:focus-visible,
 .filter-btn.active {
-  background-color: #6CC678;
-  color: #333;
+  background: #6cc678;
 }
 
-.push{
-	/*テキストの基点とするためrelativeを指定*/
-	position: relative;
-    /*ボタンの形状*/
-	border: #555;/*囲み線はsolid、線幅指定はpx*/
-    min-width:20px;/*要素の幅の最小値を指定する*/
-	display: inline-block;
-	padding: 1px 0px 1px 0px;
-    text-align: center;
-    text-decoration: none;
-    color: #333;
-	background-color: #EFE42C;
-    outline: none;/*入力中に箱が入力中ということを表す*/
-    transition: all .2s;/*ホバーした時の動き*/
+.filter-btn:active {
+  transform: scale(0.96);
 }
 
-.push:hover{
-	background:#333;
-    color:#fff;
-}
-.push.active {
-  background: #333;
-  color:  #EFE42C;
-}
-
-#modal-container {
-  display: none;
-  position: fixed;
-  background: rgba(0, 0, 0, .7);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-
-#modal-container .modal-center {
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-}
-
-#modal-container img {
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 40px);
+.gallery-status {
+  width: 65%;
+  margin: 40px auto 0;
+  padding-left: 20%;
+  font-size: 12px;
 }
 
 .masonry {
-	padding: 0 125px 0 20%;
-    column-count: 3;            /* PC表示：3列 */
-    column-gap: 25px;           /* 画像の左右のすき間 */
-    width: 65%;
-    margin: 40px auto;
+  width: 65%;
+  margin: 12px auto 40px;
+  padding: 0 0 0 8%;
+  column-count: 3;
+  column-gap: 25px;
+}
+
+.masonry-item {
+  margin: 0 0 25px;
+  break-inside: avoid;
 }
 
 .masonry img {
-    width: 100%;
-    margin-bottom: 25px;
-    display: block;
-    break-inside: avoid;
-    transition: all 0.3s ease; /* アニメーションはここに */
-    cursor: pointer;
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .masonry img:hover {
-	width: 100%;
-    transform: scale(1.05);        /* 少し拡大 */
-    filter: brightness(0.9);        /* 少し暗く */
+  filter: brightness(0.9);
+  transform: scale(1.05);
 }
 
+#modal-container[hidden] {
+  display: none;
+}
 
+#modal-container {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgb(0 0 0 / 75%);
+}
 
-/*==========================================すまほ==========================================*/
+.modal-center {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: zoom-out;
+}
+
+.modal-center img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.modal-close {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 18px;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
-	
-	.top{
-    background-color: #9D9D9D;
-    display: flex;
-    align-items: center;     /* 中央揃え（必要なら） */
-    gap: 10px;               /* ボタンとの間隔 */
-    padding: 5px 10px;      /* ← 中に余白を入れる */
-    border: 1px solid #000;  /* ← 枠線をつける */
-    width: calc(100% - 20px);/* 枠線がはみ出さないための調整（任意） */
-	height: auto;
-    margin: 0 auto; 
-	position: fixed;
+  .top {
     top: 0;
     left: 0;
-    z-index: 100; /* モーダルより低くする */
-    transition: transform 0.3s ease;
-		
-}
-	#modal-container {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 9999; /* トップより前面 */
-}
-	/* 隠すときは上に移動 */
-　　.top.hidden {
+    width: 100%;
+    min-height: 76px;
+    padding: 8px 10px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid #000;
+    background: #9d9d9d;
+  }
+
+  .top.hidden {
     transform: translateY(-100%);
-}
-	.top hi{
-		margin-left: 0%;
-		margin: 0;
-        flex-shrink: 0;    
-	}
-	.top h1 img {
-        width: 60px;              /* 必要に応じてサイズ調整 */
-        height: auto;
-        display: block;
-    }
-	.filter-btn{
-		margin-top: 8%;
-		margin-left: 5px;
-		margin: 0;
-        padding: 6px 12px;
-        font-size: 14px;
-	}
-	
-	main{
-		margin-top: 35%;
-	}
+  }
+
+  .top h1 {
+    width: 58px;
+    flex: 0 0 auto;
+  }
+
+  .top h1 img {
+    width: 55px;
+  }
+
+  .filter-btn {
+    min-width: 0;
+    padding: 6px 9px;
+    font-size: 12px;
+  }
+
+  .gallery-status {
+    width: 90%;
+    margin-top: 105px;
+    padding: 0;
+  }
+
   .masonry {
+    width: 90%;
+    margin-top: 12px;
+    padding: 0;
     column-count: 2;
-    column-gap: 25px;
-    width: 90%; 
-    padding: 0 5%;
-}
-	
+    column-gap: 18px;
+  }
+
+  .masonry-item {
+    margin-bottom: 18px;
+  }
 }
 
-
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
